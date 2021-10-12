@@ -1,23 +1,24 @@
+const chai = require('chai');
 Feature('World Time API');
 Scenario('Retrieve and Validate Timezones API', async ({I}) => {
     const timezones = await I.sendGetRequest('http://worldtimeapi.org/api/timezone');
-    I.expect(timezones.status).to.eql(200);
-    I.expect(Array.isArray(timezones.body)).to.eql(true);
-    I.expect(timezones.body).to.include("America/Santiago");
+    chai.expect(timezones.status).to.equal(200);
+    chai.expect(Array.isArray(timezones.data)).to.equal(true);
+    chai.expect(timezones.data).to.include("America/Santiago");
 });
 
 Scenario('Retrieve Bogota Timezone Information', async ({I}) => {
    const bogotaTimezone =  await I.sendGetRequest('http://worldtimeapi.org/api/timezone/America/Bogota');
-   I.expect(typeof(bogotaTimezone.body)).to.eql('object')
-   I.expect(bogotaTimezone.status).to.eql(200);
-   I.expect(bogotaTimezone.body.day_of_week).to.eql((new Date()).getDay())
+   chai.expect(typeof(bogotaTimezone.data)).to.equal('object')
+   chai.expect(bogotaTimezone.status).to.equal(200);
+   chai.expect(bogotaTimezone.data.day_of_week).to.equal((new Date()).getDay())
 });
 
 Scenario('Get Error Message when inputing a typo inside the url', async({I}) => {
-    const getError = await I.sendGetRequest('http://worldtimeapi.org/api/timezone/America/Bogotá');
-    I.expect(typeof(getError.body)).to.eql('object')
-    I.expect(getError.status).to.eql(404);
-    I.expect(getError.body.error).to.eql("unknown location")
+    const getError = await I.sendGetRequest('http://worldtimeapi.org/api/timezone/America/Bogotas');
+    chai.expect(typeof(getError.data)).to.equal('object')
+    chai.expect(getError.status).to.equal(404);
+    chai.expect(getError.data.error).to.equal("unknown location")
 });
 
 

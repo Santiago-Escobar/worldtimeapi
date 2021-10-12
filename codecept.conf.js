@@ -7,10 +7,15 @@ setHeadlessWhen(process.env.HEADLESS);
 exports.config = {
   tests: './*_test.js',
   output: './output',
+  timeout: 15000,
   helpers: {
     WebDriver: {
       url: 'http://localhost',
-      browser: 'chrome'
+      browser: 'chrome',
+      smartWait: 20000,
+    },
+    REST: {
+      endpoint: 'http://localhost'
     }
   },
   include: {

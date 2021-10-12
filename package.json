@@ -1,6 +1,8 @@
 {
     "dependencies": {
         "axios": "^0.23.0",
+        "chai": "^4.3.4",
+        "chai-as-promised": "^7.1.1",
         "webdriver-manager": "^12.1.8"
     },
     "scripts": {
